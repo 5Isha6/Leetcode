@@ -17,6 +17,7 @@ class Solution:
             if grid[i][j] == 2 and totalzero == 0:
                 nonlocal tp
                 tp += 1
+				return
             
             temp = grid[i][j]
             grid[i][j] = 99
