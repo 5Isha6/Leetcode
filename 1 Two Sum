@@ -1,0 +1,18 @@
+# 1 Two Sum
+from collections import defaultdict
+class Solution:
+    def twoSum(self, nums: List[int], target: int) -> List[int]:
+        d = defaultdict()
+        res = []
+        
+       
+        for i in range(len(nums)):
+
+            if bool(d) and (nums[i]) in d:
+                res.append([i,(d[(nums[i])])])
+            else:
+                d[(target - nums[i])] = i
+                    
+    
+        # print(d, res)
+        return res[0]
