@@ -1,0 +1,17 @@
+# fib greater than x and n elements
+def fib(x, n):
+    a, b = 0, 1
+    res = []
+    while 1:
+        c = a + b
+        
+        if c >= x and n > 0:
+            res.append(c)
+            n -= 1
+        elif n == 0:
+            break
+        a = b
+        b = c
+                
+        
+    return res
