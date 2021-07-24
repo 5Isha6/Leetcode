@@ -1,0 +1,30 @@
+# 647 Palindromic Substrings
+class Solution:
+    def countSubstrings(self, s: str) -> int:
+        res = 0
+        for i in range(len(s)):
+            l, r = i, i
+            
+            while l >= 0 and r < len(s):
+                if s[l] == s[r]:
+                  #  print('odd', i,l, r , s[l])
+                    res += 1
+                else:
+                    break
+                l -= 1
+                r += 1
+            l = i
+            r = i+1
+            while l >= 0  and r < len(s):
+                if s[l] == s[r]:
+                    # print("even",i, l,r,s[l])
+                    res += 1
+                else:
+                    break
+                l -= 1
+                r += 1
+                
+            # print(res)
+        return res
+                    
+                
