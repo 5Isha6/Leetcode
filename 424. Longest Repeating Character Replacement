@@ -1,0 +1,27 @@
+# 424. Longest Repeating Character Replacement
+from collections import defaultdict
+class Solution:
+    def characterReplacement(self, s: str, k: int) -> int:
+        l = 0
+        r = 0
+        lensliding = 0
+        d = defaultdict(int)
+        for i in range(len(s)):
+            d[s[i]] += 1
+            if r < len(s):
+                lensliding += 1
+            maxi  = max(d.values())
+            # print('max',maxi)
+            if lensliding - maxi <= k:
+                r += 1
+                # print('r',r)
+                
+            else: 
+                
+                d[s[l]] -= 1
+                l += 1
+                lensliding -= 1
+            # print(i,l,r,lensliding)
+        return lensliding 
+        
+        
