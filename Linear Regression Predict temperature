@@ -1,0 +1,61 @@
+#Linear Regression Predict temperature
+#!/bin/python3
+
+import sys
+import os
+
+
+
+# Complete the function below.
+import numpy as np
+import datetime,time
+from sklearn.linear_model import LinearRegression
+def predictTemperature(startDate, endDate, temperature, n):
+    p = int(len(temperature)/24)
+    res = []
+    for i in range(1, len(temperature)+1):
+        res.append(i)
+    y = temperature
+    lr = LinearRegression()
+    lr.fit(np.asarray(res).reshape(-1,1),y)
+    
+    f = res[-1] + 1
+    pred = []
+    for i in range(24*n):
+        pred.append(f)
+        f += 1
+    return lr.predict(np.asarray(pred).reshape(-1,1)).tolist()
+
+    #print(predictTemperature(startDate,endDate,temperature,n  ))
+
+if __name__ == "__main__":
+    f = open(os.environ['OUTPUT_PATH'], 'w')
+
+    try:
+        startDate = str(input())
+    except:
+        startDate = None
+
+    try:
+        endDate = str(input())
+    except:
+        endDate = None
+
+    temperature_cnt = 0
+    temperature_cnt = int(input())
+    temperature_i = 0
+    temperature = []
+    while temperature_i < temperature_cnt:
+        temperature_item = float(input())
+        temperature.append(temperature_item)
+        temperature_i += 1
+
+
+    n = int(input())
+
+    res = predictTemperature(startDate, endDate, temperature, n);
+    for res_cur in res:
+        f.write( str(res_cur) + "\n" )
+
+
+    f.close()
