@@ -1,0 +1,90 @@
+# Shopper's delight
+#!/bin/python3
+
+import math
+import os
+import random
+import re
+import sys
+
+
+
+#
+# Complete the 'getNumberOfOptions' function below.
+#
+# The function is expected to return a LONG_INTEGER.
+# The function accepts following parameters:
+#  1. INTEGER_ARRAY priceOfJeans
+#  2. INTEGER_ARRAY priceOfShoes
+#  3. INTEGER_ARRAY priceOfSkirts
+#  4. INTEGER_ARRAY priceOfTops
+#  5. INTEGER budgeted
+#
+
+def getNumberOfOptions(priceOfJeans, priceOfShoes, priceOfSkirts, priceOfTops, budgeted):
+    # Write your code here
+    jnsh = []
+    snt = []
+    for i in priceOfJeans:
+        for j in priceOfShoes:
+            jnsh.append( i + j )
+    for i in priceOfSkirts:
+        for j in priceOfTops:
+            snt.append( i + j )
+    
+    jnsh.sort()
+    snt.sort(reverse=True)
+    
+    res = 0
+    pointer = 0
+    for i in jnsh:
+        rem = budgeted - i
+        while pointer < len(snt) and snt[pointer] > rem:
+            pointer += 1
+        if pointer == len(snt):
+            break
+        
+        res += len(snt) - pointer
+    return res
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    priceOfJeans_count = int(input().strip())
+
+    priceOfJeans = []
+
+    for _ in range(priceOfJeans_count):
+        priceOfJeans_item = int(input().strip())
+        priceOfJeans.append(priceOfJeans_item)
+
+    priceOfShoes_count = int(input().strip())
+
+    priceOfShoes = []
+
+    for _ in range(priceOfShoes_count):
+        priceOfShoes_item = int(input().strip())
+        priceOfShoes.append(priceOfShoes_item)
+
+    priceOfSkirts_count = int(input().strip())
+
+    priceOfSkirts = []
+
+    for _ in range(priceOfSkirts_count):
+        priceOfSkirts_item = int(input().strip())
+        priceOfSkirts.append(priceOfSkirts_item)
+
+    priceOfTops_count = int(input().strip())
+
+    priceOfTops = []
+
+    for _ in range(priceOfTops_count):
+        priceOfTops_item = int(input().strip())
+        priceOfTops.append(priceOfTops_item)
+
+    budgeted = int(input().strip())
+
+    result = getNumberOfOptions(priceOfJeans, priceOfShoes, priceOfSkirts, priceOfTops, budgeted)
+
+    fptr.write(str(result) + '\n')
+
+    fptr.close()
