@@ -1,0 +1,28 @@
+# 417. Pacific Atlantic Water Flow
+class Solution:
+    def pacificAtlantic(self, heights: List[List[int]]) -> List[List[int]]:
+        ro = len(heights)
+        co = len(heights[0])
+        pac, atl = set(), set()
+        
+        def dfs(r, c, visit, prevH):
+            if ((r,c) in visit or r < 0 or c < 0 or r == ro or c == co or heights[r][c] < prevH ):
+                return
+            visit.add((r,c))
+            dfs(r+1,c,visit,heights[r][c])
+            dfs(r-1,c,visit,heights[r][c])
+            dfs(r,c+1,visit,heights[r][c])
+            dfs(r,c-1,visit,heights[r][c])
+        
+        
+        for i in range(co):
+            dfs(0,i,pac,heights[0][i])
+            dfs(ro-1,i,atl,heights[ro-1][i])
+            
+        for j in range(ro):
+            dfs(j,0,pac,heights[j][0])
+            dfs(j,co-1,atl,heights[j][co-1])
+            
+        # res = []
+        res = list(pac.intersection(atl))
+        return res
