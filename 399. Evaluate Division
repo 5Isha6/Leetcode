@@ -1,0 +1,45 @@
+#399. Evaluate Division
+from collections import defaultdict, deque
+class Solution:
+    def calcEquation(self, equations: List[List[str]], values: List[float], queries: List[List[str]]) -> List[float]:
+        d = defaultdict(list)
+        for i in range(len(equations)):
+            d[equations[i][0]].append([equations[i][1],values[i]])
+            d[equations[i][1]].append([equations[i][0],1.0/values[i]])
+        
+        
+        res = []
+        
+        q = deque()
+        for i in range(len(queries)):
+            visit = set()
+            q = deque()
+            q.append((queries[i][0],1.0,queries[i][1]))
+            
+            
+            res.append(self.compute(q,visit,d))
+            
+        return res
+                
+                
+    def compute(self,q,visit,d): 
+        while q:
+            curr, num, end = q.popleft()
+            if curr == end and curr in d:
+                return 1.0
+            
+            if curr in visit:
+                continue
+            visit.add(curr)
+            if curr in d:
+                values = d.get(curr)
+               
+                for v in values:
+                 
+                    if v[0] not in visit:
+                        
+                        if v[0] == end:
+                            return v[1]*num
+                        q.append((v[0], v[1]*num, end))
+                    
+        return -1
