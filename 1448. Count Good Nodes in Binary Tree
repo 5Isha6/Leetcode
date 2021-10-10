@@ -1,0 +1,29 @@
+# 1448. Count Good Nodes in Binary Tree
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def goodNodes(self, root: TreeNode) -> int:
+        
+        
+        def dfs(h, max_yet):
+            nonlocal good_nums
+            
+            if max_yet <= h.val:
+                max_yet = h.val
+                good_nums += 1
+            if h.left:
+                dfs(h.left, max(h.val, max_yet))
+            if h.right:
+                dfs(h.right, max(h.val, max_yet))
+            
+            
+        good_nums = 0
+        dfs(root, float('-inf'))
+        return good_nums
+            
+            
+            
