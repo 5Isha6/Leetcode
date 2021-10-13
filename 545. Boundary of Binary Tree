@@ -1,0 +1,63 @@
+# 545. Boundary of Binary Tree
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def boundaryOfBinaryTree(self, root: Optional[TreeNode]) -> List[int]:
+        bb = [root.val]
+        stack = []
+        stack.append(root)
+        
+        def dfsl(head):
+            if head is None or not head.left and not head.right:
+                return
+           
+            bb.append(head.val)
+            if head.left is not None:
+                dfsl(head.left)
+            if head.left is None:
+                dfsl(head.right)
+                
+        
+        def dfsleaf(head):
+            if head is None:
+                return
+            
+            if head != root and head.left is None and head.right is None:
+                # if head.val not in bb:
+                bb.append(head.val)
+                 
+            dfsleaf(head.left)
+            dfsleaf(head.right)
+       
+        
+        # stack = []
+       
+        def dfsr(head):
+            if head is None or not head.left and not head.right:
+                return
+            
+            if head.right is not None:
+                dfsr(head.right)
+            if head.right is None:
+                dfsr(head.left)
+            bb.append(head.val)
+       
+        dfsl(root.left)  
+        dfsleaf(root)        
+        dfsr(root.right) 
+        
+#         while stack:
+#             temp = stack.pop()
+           
+#             bb.append(temp)
+            
+         
+        return bb
+        
+             
+            
+        
